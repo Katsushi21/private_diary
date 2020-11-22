@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'r-kms^y+d9g^hc5lf**reic%!_l0-mho*^nv!5po6%_&k)jzwd'
+SECRET_KEY = '5o$0@pu!nh4zzq4h*eg*gzjwg@juyd80&sj^@4fv!$bs_8e8dx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'diary.apps.contrib.staticfiles'
+    'diary.apps.DiaryConfig',
 ]
 
 MIDDLEWARE = [
@@ -125,43 +125,37 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGGING = {
-    # 1固定
+DEFAULT_LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
 
-    # ロガーの設定
-    'loggers': {
-        # Djangoが使用するロガー
-        'django': {
-            'handlers': ['console'],
-            'level': 'INFO',
-        },
-        # diaryアプリケーションが使うロガー
-        'diary': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-    },
-
-    # ハンドラの設定
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'dev'
-        },
-    },
-
-    # フォーマッタの設定
     'formatters': {
         'dev': {
             'format': '\t'.join([
                 '%(asctime)s',
                 '[%(levelname)s]',
                 '%(pathname)s(Line:%(Lineno)d)',
-                '%(message)s'
-            ])
+                '%(message)s',
+                ])
+        }
+    },
+
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'formatter': 'dev',
+            'class': 'logging.StreamHandler',
+        }
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'diary': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
         }
     }
 }
