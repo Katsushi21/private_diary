@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib.messages import constants as messages
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -38,8 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'diary.apps.DiaryConfig',
-]
+    'accounts.apps.AccountsConfig',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -163,3 +171,32 @@ DEFAULT_LOGGING = {
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+MESSAGE_TAGS = {
+    messages.ERROR: 'alert alert-danger',
+    messages.WARNING: 'alert alert-danger',
+    messages.SUCCESS: 'alert alert-danger',
+    messages.INFO: 'alert alert-danger',
+}
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKNDS = (
+    'allauth.accounts.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = 'False'
+
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_REQUIRED = 'True'
+
+LOGIN_REDIRECCT_URL = 'diary:index'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
+
+ACCOUNT_LOGOUT_ON_GET = True
+
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+
+DEFAULT_FROM_EMAIL = 'admin@example.com'
