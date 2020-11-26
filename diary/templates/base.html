@@ -5,7 +5,6 @@
 <html lang="ja">
 
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -26,7 +25,6 @@
   <!-- My style -->
   <link rel="stylesheet" type="text/css" href="{% static 'css/mystyle.css' %}">
   {% block head %}{% endblock %}
-
 </head>
 
 <body>
@@ -39,8 +37,8 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item{% block active_inquiry %}{% endblock %}">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item {% block active_inquiry %}{% endblock %}">
               <a class="nav-link" href="{% url 'diary:inquiry' %}">INQUIRY</a>
             </li>
           </ul>
@@ -50,14 +48,13 @@
               <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
             </li>
             {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="#">Sign Up</a>
+            <li class="nav-item {% block active_signup %}{% endblock %}">
+              <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
             </li>
-          </ul>
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Log In</a>
+            <li class="nav-item {% block active_login %}{% endblock %}">
+              <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
             </li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -71,7 +68,7 @@
         <div class="my-div-style w-100">
           <ul class="messages" style="list-style: none;">
             {% for message in messages %}
-            <li {% if message.tags %} class="{{message.tags}}" {% endif %}>
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
               {{ message }}
             </li>
             {% endfor %}

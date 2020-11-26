@@ -12,16 +12,16 @@ class InquiryForm(forms.Form):
         super().__init__(*args, **kwargs)
 
         self.fields['name'].widget.attrs['class'] = 'form-control col-9'
-        self.fields['name'].widget.attrs['placeholder'] = 'お名前をここに入力してください'
+        self.fields['name'].widget.attrs['placeholder'] = 'お名前をここに入力してください。'
 
         self.fields['email'].widget.attrs['class'] = 'form-control col-11'
-        self.fields['email'].widget.attrs['placeholder'] = 'メールアドレスをここに入力してください'
+        self.fields['email'].widget.attrs['placeholder'] = 'メールアドレスをここに入力してください。'
 
         self.fields['title'].widget.attrs['class'] = 'form-control col-11'
-        self.fields['title'].widget.attrs['placeholder'] = 'タイトルをここに入力してください'
+        self.fields['title'].widget.attrs['placeholder'] = 'タイトルをここに入力してください。'
 
         self.fields['message'].widget.attrs['class'] = 'form-control col-12'
-        self.fields['message'].widget.attrs['placeholder'] = 'メッセージをここに入力してください'
+        self.fields['message'].widget.attrs['placeholder'] = 'メッセージをここに入力してください。'
 
     def send_email(self):
         name = self.cleaned_data['name']
@@ -30,8 +30,8 @@ class InquiryForm(forms.Form):
         message = self.cleaned_data['message']
 
         subject = 'お問い合わせ {}'.format(title)
-        message = '送信者名: {0}\nメールアドレス: {1}\nメッセージ: \n{2}'.format(name, email, message)
-        form_email = 'admin@example.com'
+        message = '送信者名: {0}\nメールアドレス: {1}\nメッセージ:\n{2}'.format(name, email, message)
+        from_email = 'admin@example.com'
         to_list = [
             'test@example.com'
         ]
@@ -39,6 +39,5 @@ class InquiryForm(forms.Form):
             email
         ]
 
-        message = EmailMessage(subject=subject, body=message,
-                               from_email=form_email, to=to_list, cc=cc_list)
+        message = EmailMessage(subject=subject, body=message, from_email=from_email, to=to_list, cc=cc_list)
         message.send()
