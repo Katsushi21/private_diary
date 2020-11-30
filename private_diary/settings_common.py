@@ -152,3 +152,6 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 DEFAULT_FROM_EMAIL = 'admin@example.com'
 
 MEDIA_URL = '/media/'
+
+BACKUP_PATH = 'backup/'
+NUM_SAVED_BACKUP = 30
