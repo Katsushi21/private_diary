@@ -155,4 +155,3 @@ MEDIA_URL = '/media/'
 
 BACKUP_PATH = 'backup/'
 NUM_SAVED_BACKUP = 30
-
